@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * self blob: data: gap:; style-src * self 'unsafe-inline' blob: data: gap:; script-src * 'self' 'unsafe-eval' 'unsafe-inline' blob: data: gap:; object-src * 'self' blob: data: gap:; img-src * self 'unsafe-inline' blob: data: gap:; connect-src self * 'unsafe-inline' blob: data: gap:; frame-src * self blob: data: gap:;">
+
+    <title>OpenSplice</title>
+
+    <link rel="stylesheet" type="text/css" href="./style.css">
+  </head>
+
+  <body class="bg-gray-700 overflow-hidden">
+    <div class="titlebar">
+        OpenSplice
+    </div>
+    
+    <div class="flex h-screen w-screen flex-col md:flex-row">
+      <!-- Mobile Navbar -->
+      <!-- Icon Sidebar -->
+      <div class="hidden w-16 flex-shrink-0 md:block">
+        <div class="flex h-full w-16 flex-col bg-layer-2">
+          <div class="flex flex-1 flex-col overflow-y-auto">
+            <!-- Logo -->
+            <div class="mt-5 h-8 flex-shrink-0 px-4 text-heading text-2xl underline italic">
+              <b>OS</b>
+            </div>
+            <div class="mt-5 space-y-1 px-1 sm:px-2">
+              <!-- Active: "group relative flex items-center rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-heading/80 px-2 py-2 bg-layer-3 text-heading", Not Active: "group relative flex items-center rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-heading/80 px-2 py-2 text-text hover:bg-layer-3 hover:text-heading" -->
+              <a
+                href="#"
+                class="group relative flex h-10 w-10 items-center justify-center rounded-xl bg-layer-3 font-medium text-heading focus:outline-none focus:ring-2 focus:ring-heading/80"
+              >
+                <!-- Heroicon name: outline/home -->
+                <svg
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6 flex-shrink-0"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="{2}"
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                  />
+                </svg>
+                <span class="sr-only">Home</span>
+              </a>
+            </div>
+          </div>
+          <div class="mb-2 space-y-1 px-1 sm:px-2">
+            <a
+              href="#"
+              class="group relative flex h-10 w-10 items-center justify-center rounded-xl font-medium text-text hover:bg-layer-3 hover:text-heading focus:outline-none focus:ring-2 focus:ring-heading/80"
+            >
+              <!-- Heroicon name: outline/cog -->
+              <svg
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 flex-shrink-0"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="{2}"
+                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="{2}"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>
+              <span class="sr-only">Settings</span>
+            </a>
+  
+          </div>
+        </div>
+      </div>
+    
+      <div class="flex-1 overflow-scroll">
+        
+        <div class="relative overflow-x-auto">
+          <div id="audio-player-container">
+  
+          </div>
+          <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead class="text-xs text-gray-200 bg-slate-500 uppercase bg-gray-20">
+                  <tr>
+                      <th scope="col" class="px-6 py-3 rounded-lg">
+                          Sample Name
+                      </th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" id="sampleNames">
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      </th>
+                  </tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+      <div role="dialog" aria-modal="true" class="md:hidden">
+        <!--
+      Overlay backdrop, show/hide based on modal state
+    
+      Entering: "ease-out duration-300"
+        From: "opacity-0"
+        To: "opacity-100"
+      Leaving: "ease-in duration-200"
+        From: "opacity-100"
+        To: "opacity-0"
+    -->
+        <div class="fixed inset-0 bg-layer-1/60 transition-opacity"></div>
+    
+        <!-- Drawer underlay -->
+        <div class="fixed inset-0 flex">
+          <!--
+      Drawer panel, show/hide based on modal state.
+    
+      Entering: "transform transition ease-in-out duration-500 sm:duration-700"
+        From: "-translate-x-full"
+        To: "translate-x-0"
+      Leaving: "transform transition ease-in-out duration-500 sm:duration-700"
+        From: "translate-x-0"
+        To: "-translate-x-full"
+    -->
+          <div
+            class="relative flex h-full w-screen max-w-xs flex-col bg-layer-2 shadow-2xl"
+          >
+            <!-- Close button -->
+            <div class="absolute -right-14 top-0 flex w-14 justify-center pt-2">
+              <button
+                type="button"
+                class="inline-flex cursor-pointer items-center justify-center rounded-xl border-none border-transparent bg-transparent p-2 font-semibold text-text hover:bg-heading/5 hover:text-heading focus:bg-heading/5 focus:outline-none focus:ring-2 focus:ring-heading/80 focus:ring-offset-0 disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-text"
+              >
+                <span class="sr-only">Close sidebar</span>
+    
+                <!-- Heroicon name: outline/x -->
+                <svg
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="{2}"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div id="audio-player-container">
+
+    </div>
+
+    <div class="relative overflow-x-auto">
+      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                  <th scope="col" class="px-6 py-3">
+                      Name
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                      Play
+                  </th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" id="sampleNames">
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      Apple MacBook Pro 17"
+                  </th>
+                  <td class="px-6 py-4">
+                      Silver
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+    </div> -->
+    <script type="module" src="script.js" referrerpolicy="self"></script>
+  </body>
+</html>

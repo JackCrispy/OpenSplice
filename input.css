@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    color: #fff;
+    font-family: monospace;
+}
+
+.titlebar {
+    padding: 5px;
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+}
+
+

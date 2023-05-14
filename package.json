@@ -1,0 +1,22 @@
+{
+  "name": "opensplice",
+  "version": "1.0.0",
+  "description": "Electron app to let you listen to your splice sounds you have saved",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "author": "Jack Christie",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^24.3.0",
+    "tailwindcss": "^3.3.2"
+  },
+  "dependencies": {
+    "electron-reload": "^2.0.0-alpha.1",
+    "fs": "^0.0.1-security",
+    "original-fs": "^1.2.0",
+    "path": "^0.12.7"
+  }
+}
